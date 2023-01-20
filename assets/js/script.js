@@ -12,3 +12,16 @@ searchBtn.addEventListener('click', function () {
     } else
     searchWeather(city)
 })
+// function that displays current weather and forecast fetched from OpenWeather API
+function searchWeather(city) {
+    let weatherApiKey = '542bb7e6d08fd71cf01b529cf638c811'
+    // current weather root url, includes imperial unit query parameter
+    let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherApiKey}&units=imperial`
+    fetch(weatherUrl)
+    .then(function (res) {
+        return res.json()
+    })
+    .then(function (data) {
+        console.log(data)
+    })
+}
