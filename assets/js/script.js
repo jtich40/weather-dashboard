@@ -37,5 +37,17 @@ function searchWeather(city) {
         let iconEl = document.createElement('img')
         iconEl.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`
         currentWeatherContainer.appendChild(iconEl)
+        // current temperature to be displayed
+        let tempEl = document.createElement('p')
+        tempEl.innerText = 'Temperature: ' + data.main.temp + '°F'
+        currentWeatherContainer.appendChild(tempEl)
+        // current humidity to be displayed
+        let humidityEl = document.createElement('p')
+        humidityEl.innerText = 'Humidity: ' + data.main.humidity + '%'
+        currentWeatherContainer.appendChild(humidityEl)
+        // current wind speed to be displayed
+        let windSpeedEl = document.createElement('p')
+        windSpeedEl.innerText = 'Wind Speed: ' + data.wind.speed + ' MPH'
+        currentWeatherContainer.appendChild(windSpeedEl)
     })
 }
