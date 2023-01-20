@@ -23,5 +23,19 @@ function searchWeather(city) {
     })
     .then(function (data) {
         console.log(data)
+        // container element that will include all current weather info
+        let currentWeatherContainer = document.getElementById('current-weather')
+        // city information to be displayed
+        let cityEl = document.createElement('span')
+        cityEl.innerText = data.name
+        currentWeatherContainer.appendChild(cityEl)
+        // current date to be displayed
+        let dateEl = document.createElement('span')
+        dateEl.innerText = data.dt
+        currentWeatherContainer.appendChild(dateEl)
+        // icon representing weather condition to be displayed
+        let iconEl = document.createElement('img')
+        iconEl.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`
+        currentWeatherContainer.appendChild(iconEl)
     })
 }
