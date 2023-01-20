@@ -49,5 +49,31 @@ function searchWeather(city) {
         let windSpeedEl = document.createElement('p')
         windSpeedEl.innerText = 'Wind Speed: ' + data.wind.speed + ' MPH'
         currentWeatherContainer.appendChild(windSpeedEl)
+        // 5-day forecast to be rendered to the container
+        let futureWeatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${weatherApiKey}&units=imperial`
+        fetch(futureWeatherUrl)
+        .then(function (res) {
+            return res.json()
+        })
+        .then (function (data) {
+            // set container for 5-day forecast
+            let futureWeatherContainer = document.getElementById('five-day-forecast')
+            console.log(data)
+            // fetches weather data 
+            for (let i = 0; i < data.list.length; i += 8) {
+                const forecast = data.list[i];
+                console.log(forecast)
+                // iterates over future date
+                let futureDateEl = document.createElement('span')
+                futureDateEl.innerText = forecast.dt
+                futureWeatherContainer.appendChild(futureDateEl)
+                // iterates over future weather condition icon
+                let futureIconEl = document.createElement('img')
+                futureIconEl.src = `http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`
+                futureWeatherContainer.appendChild(futureIconEl)
+                
+
+            }
+        })
     })
 }
