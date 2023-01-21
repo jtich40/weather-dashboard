@@ -71,7 +71,18 @@ function searchWeather(city) {
                 let futureIconEl = document.createElement('img')
                 futureIconEl.src = `http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`
                 futureWeatherContainer.appendChild(futureIconEl)
-                
+                // iterates over future temperature
+                let futureTempEl = document.createElement('p')
+                futureTempEl.innerText = 'Temperature: ' + forecast.main.temp + '°F'
+                futureWeatherContainer.appendChild(futureTempEl)
+                // iterates over future humidity
+                let futureHumidityEl = document.createElement('p')
+                futureHumidityEl.innerText = 'Humidity: ' + forecast.main.humidity + '%'
+                futureWeatherContainer.appendChild(futureHumidityEl)
+                // iterates over future wind speed
+                let futureWindSpeedEl = document.createElement('p')
+                futureWindSpeedEl.innerText = 'Wind Speed: ' + forecast.wind.speed + ' MPH'
+                futureWeatherContainer.appendChild(futureWindSpeedEl)
 
             }
         })
