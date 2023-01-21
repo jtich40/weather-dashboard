@@ -31,7 +31,7 @@ function searchWeather(city) {
         currentWeatherContainer.appendChild(cityEl)
         // current date to be displayed
         let dateEl = document.createElement('span')
-        dateEl.innerText = data.dt
+        dateEl.innerText = dayjs(data.dt).format('dddd, MMM D, YYYY')
         currentWeatherContainer.appendChild(dateEl)
         // icon representing weather condition to be displayed
         let iconEl = document.createElement('img')
@@ -65,7 +65,7 @@ function searchWeather(city) {
                 console.log(forecast)
                 // iterates over future date
                 let futureDateEl = document.createElement('span')
-                futureDateEl.innerText = forecast.dt
+                futureDateEl.innerText = dayjs(forecast.dt).format('dddd, MMM D, YYYY')
                 futureWeatherContainer.appendChild(futureDateEl)
                 // iterates over future weather condition icon
                 let futureIconEl = document.createElement('img')
