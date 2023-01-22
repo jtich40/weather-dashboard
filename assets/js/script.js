@@ -8,52 +8,53 @@ searchBtn.addEventListener('click', function () {
     // grabs user input from city text field
     let city = cityInput.value
 
-    // displays search history found in local storage
-    function showSearchHistory () {
-        // adds latest search to search history array
-        searchHistory.push(city)
-        // save to local storage
-        localStorage.setItem('search', JSON.stringify(searchHistory))
-    
-        // grabs previous searches from local storage
-    let storedHistory = JSON.parse(localStorage.getItem('search'))
-    if(storedHistory !== null) {
-        storedHistory = searchHistory
-    }
-    
-    // container element that includes buttons for each previous search
-    let searchHistoryContainer = document.getElementById('search-history')
-    
-    // generate buttons for each previous search
-    for (let i = 0; i < searchHistory.length; i++) {
-        const historyList = searchHistory[i];
-        const historyBtn = document.createElement('button')
-        historyBtn.setAttribute( 'class', 'btn btn primary')
-        historyBtn.textContent = historyList
-        searchHistoryContainer.appendChild(historyBtn)
-    }
-    
-    }
     // searchWeather function will only run if value is found in city text field
     if(city === "") {
         return
     } else {
         searchWeather(city)
-        showSearchHistory()
+        showSearchHistory(city)
         // addSearchHistory()
     }
 })
+
+// displays search history found in local storage
+function showSearchHistory (search) {
+    // adds latest search to search history array
+    searchHistory.push(search)
+    // save to local storage
+    localStorage.setItem('search', JSON.stringify(searchHistory))
+
+    // grabs previous searches from local storage
+let storedHistory = JSON.parse(localStorage.getItem('search'))
+if(storedHistory !== null) {
+    storedHistory = searchHistory
+}
+
+// container element that includes buttons for each previous search
+let searchHistoryContainer = document.getElementById('search-history')
+
+// generate buttons for each previous search
+for (let i = 0; i < searchHistory.length; i++) {
+    const historyList = searchHistory[i];
+    const historyBtn = document.createElement('button')
+    historyBtn.setAttribute( 'class', 'btn btn primary')
+    historyBtn.textContent = historyList
+    searchHistoryContainer.appendChild(historyBtn)
+}
+
+}
 // adds search to local storage
 // function addSearchHistory () {
-// }
-
-// // function that grabs previous searches from local storage
-// function pullSearchHistory () {
     // }
     
-// function that displays current weather and forecast fetched from OpenWeather API
-function searchWeather(city) {
-    let weatherApiKey = '542bb7e6d08fd71cf01b529cf638c811'
+    // // function that grabs previous searches from local storage
+    // function pullSearchHistory () {
+        // }
+        
+        // function that displays current weather and forecast fetched from OpenWeather API
+        function searchWeather(city) {
+            let weatherApiKey = '542bb7e6d08fd71cf01b529cf638c811'
     // current weather root url, includes imperial unit query parameter
     let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherApiKey}&units=imperial`
     fetch(weatherUrl)
