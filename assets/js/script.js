@@ -34,6 +34,9 @@ if(storedHistory !== null) {
 // container element that includes buttons for each previous search
 let searchHistoryContainer = document.getElementById('search-history')
 
+// clears container before subsequent search to prevent duplicate buttons
+searchHistoryContainer.textContent = ""
+
 // generate buttons for each previous search
 for (let i = 0; i < searchHistory.length; i++) {
     const historyList = searchHistory[i];
@@ -66,6 +69,9 @@ for (let i = 0; i < searchHistory.length; i++) {
         console.log(data)
         // container element that will include all current weather info
         let currentWeatherContainer = document.getElementById('current-weather')
+
+        // clears container before subsequent search to prevent past city's weather from showing up
+        currentWeatherContainer.textContent = ""
 
         // city information to be displayed
         let cityEl = document.createElement('span')
@@ -105,8 +111,12 @@ for (let i = 0; i < searchHistory.length; i++) {
         })
         .then (function (data) {
             // set container for 5-day forecast
-            let futureWeatherContainer = document.getElementById('five-day-forecast')
             console.log(data)
+            let futureWeatherContainer = document.getElementById('five-day-forecast')
+
+            // clears container before subsequent search to prevent past city's weather from showing up
+        futureWeatherContainer.textContent = ""
+
             // fetches weather data 
             for (let i = 0; i < data.list.length; i += 8) {
                 const forecast = data.list[i];
