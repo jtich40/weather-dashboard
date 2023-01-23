@@ -20,13 +20,16 @@ searchBtn.addEventListener('click', function () {
 
 // displays search history found in local storage
 function showSearchHistory(search) {
+    
     // grabs previous searches from local storage
     let storedHistory = JSON.parse(localStorage.getItem('search'))
 
     // add previous searches in local storage to array before adding new searches
-    searchHistory = storedHistory
-    // adds latest search to search history array
-    searchHistory.push(search)
+    if(storedHistory !== null) {
+        searchHistory = storedHistory
+    }
+        // adds latest search to search history array
+        searchHistory.push(search)
     // save to local storage
     localStorage.setItem('search', JSON.stringify(searchHistory))
 
@@ -40,7 +43,7 @@ function showSearchHistory(search) {
     for (let i = 0; i < searchHistory.length; i++) {
         const historyList = searchHistory[i];
         const historyBtn = document.createElement('button')
-        historyBtn.setAttribute( 'class', 'btn btn primary')
+        historyBtn.setAttribute( 'class', 'btn btn-primary')
         historyBtn.textContent = historyList
         searchHistoryContainer.appendChild(historyBtn)
     }
@@ -110,7 +113,7 @@ function searchWeather(city) {
         futureWeatherContainer.textContent = ""
 
         // fetches weather data 
-        for (let i = 0; i < data.list.length; i += 8) {
+        for (let i = 8; i < data.list.length; i += 8) {
             const forecast = data.list[i];
             console.log(forecast)
 

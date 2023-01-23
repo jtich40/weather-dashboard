@@ -13,22 +13,24 @@
         <h1 class="container-fluid text-center">Weather Dashboard</h1>
     </header>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-start">
-          <div class="col-4">
+          <div class="col-4 card-title">
             <h2>Search for a City</h2>
             <div class="input-group">
                 <!-- <span class="input-group-text">With textarea</span> -->
                 <input id="city-input" placeholder="Nashville"></input>
             </div>
-            <button id="search-btn" class="btn btn-primary">Search</button>
+            <button id="search-btn" class="btn btn-primary mt-3">Search</button>
           </div>
+        </div>
+    </div>
 
-          <div id="search-history"></div>
+    <div id="search-history"></div>
 
-          <div id="current-weather"></div>
+    <div id="current-weather"></div>
 
-          <div id="five-day-forecast"></div>
+    <div id="five-day-forecast"></div>
 
     <!-- <div class="container">
         <div class="row">
