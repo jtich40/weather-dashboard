@@ -19,45 +19,36 @@ searchBtn.addEventListener('click', function () {
 })
 
 // displays search history found in local storage
-function showSearchHistory (search) {
+function showSearchHistory(search) {
+    // grabs previous searches from local storage
+    let storedHistory = JSON.parse(localStorage.getItem('search'))
+
+    // add previous searches in local storage to array before adding new searches
+    searchHistory = storedHistory
     // adds latest search to search history array
     searchHistory.push(search)
     // save to local storage
     localStorage.setItem('search', JSON.stringify(searchHistory))
 
-    // grabs previous searches from local storage
-let storedHistory = JSON.parse(localStorage.getItem('search'))
-if(storedHistory !== null) {
-    storedHistory = searchHistory
+    // container element that includes buttons for each previous search
+    let searchHistoryContainer = document.getElementById('search-history')
+
+    // clears container before subsequent search to prevent duplicate buttons
+    searchHistoryContainer.textContent = ""
+
+    // generate buttons for each previous search
+    for (let i = 0; i < searchHistory.length; i++) {
+        const historyList = searchHistory[i];
+        const historyBtn = document.createElement('button')
+        historyBtn.setAttribute( 'class', 'btn btn primary')
+        historyBtn.textContent = historyList
+        searchHistoryContainer.appendChild(historyBtn)
+    }
 }
-
-// container element that includes buttons for each previous search
-let searchHistoryContainer = document.getElementById('search-history')
-
-// clears container before subsequent search to prevent duplicate buttons
-searchHistoryContainer.textContent = ""
-
-// generate buttons for each previous search
-for (let i = 0; i < searchHistory.length; i++) {
-    const historyList = searchHistory[i];
-    const historyBtn = document.createElement('button')
-    historyBtn.setAttribute( 'class', 'btn btn primary')
-    historyBtn.textContent = historyList
-    searchHistoryContainer.appendChild(historyBtn)
-}
-
-}
-// adds search to local storage
-// function addSearchHistory () {
-    // }
-    
-    // // function that grabs previous searches from local storage
-    // function pullSearchHistory () {
-        // }
         
-        // function that displays current weather and forecast fetched from OpenWeather API
-        function searchWeather(city) {
-            let weatherApiKey = '542bb7e6d08fd71cf01b529cf638c811'
+// function that displays current weather and forecast fetched from OpenWeather API
+function searchWeather(city) {
+    let weatherApiKey = '542bb7e6d08fd71cf01b529cf638c811'
     // current weather root url, includes imperial unit query parameter
     let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherApiKey}&units=imperial`
     fetch(weatherUrl)
@@ -102,53 +93,53 @@ for (let i = 0; i < searchHistory.length; i++) {
         let windSpeedEl = document.createElement('p')
         windSpeedEl.innerText = 'Wind Speed: ' + data.wind.speed + ' MPH'
         currentWeatherContainer.appendChild(windSpeedEl)
+    })
         
-        // 5-day forecast to be rendered to the container
-        let futureWeatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${weatherApiKey}&units=imperial`
-        fetch(futureWeatherUrl)
-        .then(function (res) {
-            return res.json()
-        })
-        .then (function (data) {
-            // set container for 5-day forecast
-            console.log(data)
-            let futureWeatherContainer = document.getElementById('five-day-forecast')
+    // 5-day forecast to be rendered to the container
+    let futureWeatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${weatherApiKey}&units=imperial`
+    fetch(futureWeatherUrl)
+    .then(function (res) {
+        return res.json()
+    })
+    .then (function (data) {
+        // set container for 5-day forecast
+        console.log(data)
+        let futureWeatherContainer = document.getElementById('five-day-forecast')
 
-            // clears container before subsequent search to prevent past city's weather from showing up
+        // clears container before subsequent search to prevent past city's weather from showing up
         futureWeatherContainer.textContent = ""
 
-            // fetches weather data 
-            for (let i = 0; i < data.list.length; i += 8) {
-                const forecast = data.list[i];
-                console.log(forecast)
+        // fetches weather data 
+        for (let i = 0; i < data.list.length; i += 8) {
+            const forecast = data.list[i];
+            console.log(forecast)
 
-                // iterates over future date
-                let futureDateEl = document.createElement('span')
-                futureDateEl.innerText = dayjs(forecast.dt_txt).format('dddd, MMM D, YYYY')
-                futureWeatherContainer.appendChild(futureDateEl)
+            // iterates over future date
+            let futureDateEl = document.createElement('span')
+            futureDateEl.innerText = dayjs(forecast.dt_txt).format('dddd, MMM D, YYYY')
+            futureWeatherContainer.appendChild(futureDateEl)
 
-                // iterates over future weather condition icon
-                let futureIconEl = document.createElement('img')
-                futureIconEl.src = `http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`
-                futureWeatherContainer.appendChild(futureIconEl)
+            // iterates over future weather condition icon
+            let futureIconEl = document.createElement('img')
+            futureIconEl.src = `http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`
+            futureWeatherContainer.appendChild(futureIconEl)
 
-                // iterates over future temperature
-                let futureTempEl = document.createElement('p')
-                futureTempEl.innerText = 'Temperature: ' + forecast.main.temp + '°F'
-                futureWeatherContainer.appendChild(futureTempEl)
+            // iterates over future temperature
+            let futureTempEl = document.createElement('p')
+            futureTempEl.innerText = 'Temperature: ' + forecast.main.temp + '°F'
+            futureWeatherContainer.appendChild(futureTempEl)
 
-                // iterates over future humidity
-                let futureHumidityEl = document.createElement('p')
-                futureHumidityEl.innerText = 'Humidity: ' + forecast.main.humidity + '%'
-                futureWeatherContainer.appendChild(futureHumidityEl)
+            // iterates over future humidity
+            let futureHumidityEl = document.createElement('p')
+            futureHumidityEl.innerText = 'Humidity: ' + forecast.main.humidity + '%'
+            futureWeatherContainer.appendChild(futureHumidityEl)
 
-                // iterates over future wind speed
-                let futureWindSpeedEl = document.createElement('p')
-                futureWindSpeedEl.innerText = 'Wind Speed: ' + forecast.wind.speed + ' MPH'
-                futureWeatherContainer.appendChild(futureWindSpeedEl)
-
-            }
-        })
+            // iterates over future wind speed
+            let futureWindSpeedEl = document.createElement('p')
+            futureWindSpeedEl.innerText = 'Wind Speed: ' + forecast.wind.speed + ' MPH'
+            futureWeatherContainer.appendChild(futureWindSpeedEl)
+        }
     })
-    // showSearchHistory(city)
 }
+// call function to display search history after page refresh
+showSearchHistory()
