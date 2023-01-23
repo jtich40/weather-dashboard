@@ -140,5 +140,5 @@ for (let i = 0; i < searchHistory.length; i++) {
             }
         })
     })
-    // showSearchHistory()
+    // showSearchHistory(city)
 }
