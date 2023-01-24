@@ -56,7 +56,8 @@ function showSearchHistory(search) {
         if(searchHistory[i] != null) {
         const historyList = searchHistory[i];
         const historyBtn = document.createElement('button')
-        historyBtn.setAttribute('class', 'btn btn-primary')
+        // add class for style
+        historyBtn.setAttribute('class', 'btn btn-secondary mb-2')
         // adds id to grab in search history button event listener
         historyBtn.setAttribute('id', 'history-btn')
         // allows city input to be grabbed in search history event listener
