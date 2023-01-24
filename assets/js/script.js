@@ -1,6 +1,9 @@
 // global DOM variables
 let cityInput = document.getElementById('city-input')
 let searchBtn = document.getElementById('search-btn')
+let searchHistoryContainer = document.getElementById('search-history')
+let currentWeatherContainer = document.getElementById('current-weather')
+let futureWeatherContainer = document.getElementById('five-day-forecast')
 let searchHistory = []
 
 // event listener when user enters city and clicks search button
@@ -17,6 +20,15 @@ searchBtn.addEventListener('click', function () {
         // addSearchHistory()
     }
 })
+// event listener for search history buttons
+searchHistoryContainer.addEventListener('click', function (element) {
+    if (!element.target.matches('#history-btn')) {
+        return
+    }
+    let histBtn = element.target
+    let pastSearch = histBtn.getAttribute('data-search')
+    searchWeather(pastSearch)
+})
 
 // displays search history found in local storage
 function showSearchHistory(search) {
@@ -25,18 +37,16 @@ function showSearchHistory(search) {
     let storedHistory = JSON.parse(localStorage.getItem('search'))
 
     // add previous searches in local storage to array before adding new searches
-    if(storedHistory !== null) {
+    if(storedHistory != null) {
         searchHistory = storedHistory
     }
-        // adds latest search to search history array
-        if(searchHistory != null) {
+        // adds latest search to search history array if it is not null and is unique
+        if (search != null && !searchHistory.includes(search)) {
             searchHistory.push(search)
         }
     // save to local storage
     localStorage.setItem('search', JSON.stringify(searchHistory))
 
-    // container element that includes buttons for each previous search
-    let searchHistoryContainer = document.getElementById('search-history')
 
     // clears container before subsequent search to prevent duplicate buttons
     searchHistoryContainer.textContent = ""
@@ -46,7 +56,11 @@ function showSearchHistory(search) {
         if(searchHistory[i] != null) {
         const historyList = searchHistory[i];
         const historyBtn = document.createElement('button')
-        historyBtn.setAttribute( 'class', 'btn btn-primary')
+        historyBtn.setAttribute('class', 'btn btn-primary')
+        // adds id to grab in search history button event listener
+        historyBtn.setAttribute('id', 'history-btn')
+        // allows city input to be grabbed in search history event listener
+        historyBtn.setAttribute('data-search', searchHistory[i])
         historyBtn.textContent = historyList
         searchHistoryContainer.appendChild(historyBtn)
         }
@@ -65,8 +79,6 @@ function searchWeather(city) {
     })
     .then(function (data) {
         console.log(data)
-        // container element that will include all current weather info
-        let currentWeatherContainer = document.getElementById('current-weather')
 
         // clears container before subsequent search to prevent past city's weather from showing up
         currentWeatherContainer.textContent = ""
@@ -109,15 +121,14 @@ function searchWeather(city) {
         return res.json()
     })
     .then (function (data) {
-        // set container for 5-day forecast
+        
         console.log(data)
-        let futureWeatherContainer = document.getElementById('five-day-forecast')
 
         // clears container before subsequent search to prevent past city's weather from showing up
         futureWeatherContainer.textContent = ""
 
         // fetches weather data 
-        for (let i = 8; i < data.list.length; i += 8) {
+        for (let i = 0; i < data.list.length; i += 8) {
             const forecast = data.list[i];
             console.log(forecast)
 
