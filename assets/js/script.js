@@ -128,7 +128,7 @@ function searchWeather(city) {
         futureWeatherContainer.textContent = ""
 
         // fetches weather data 
-        for (let i = 0; i < data.list.length; i += 8) {
+        for (let i = 5; i < data.list.length; i += 8) {
             const forecast = data.list[i];
             console.log(forecast)
 
