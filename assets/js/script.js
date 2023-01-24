@@ -29,7 +29,9 @@ function showSearchHistory(search) {
         searchHistory = storedHistory
     }
         // adds latest search to search history array
-        searchHistory.push(search)
+        if(searchHistory != null) {
+            searchHistory.push(search)
+        }
     // save to local storage
     localStorage.setItem('search', JSON.stringify(searchHistory))
 
@@ -41,11 +43,13 @@ function showSearchHistory(search) {
 
     // generate buttons for each previous search
     for (let i = 0; i < searchHistory.length; i++) {
+        if(searchHistory[i] != null) {
         const historyList = searchHistory[i];
         const historyBtn = document.createElement('button')
         historyBtn.setAttribute( 'class', 'btn btn-primary')
         historyBtn.textContent = historyList
         searchHistoryContainer.appendChild(historyBtn)
+        }
     }
 }
         
