@@ -84,7 +84,7 @@ function searchWeather(city) {
         // clears container before subsequent search to prevent past city's weather from showing up
         currentWeatherContainer.textContent = ""
 
-        currentWeatherContainer.setAttribute('class', 'd-flex flex-column justify-content-start border rounded p-3 card')
+        currentWeatherContainer.setAttribute('class', 'd-flex flex-column justify-content-start border rounded p-3 card mt-4')
 
         // city information to be displayed
         let cityEl = document.createElement('h2')
