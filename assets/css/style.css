@@ -1,0 +1,21 @@
+body {
+    color: #fff;
+    background-color: #000;
+    font-family: monospace;
+}
+
+h1 {
+    background-color: #4a81e6;
+}
+
+p {
+    font-size: 130%;
+}
+
+img {
+    width: 50% ;
+}
+
+.card {
+    background-color: #4a81e6;
+}

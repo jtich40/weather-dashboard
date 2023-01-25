@@ -10,48 +10,32 @@
 </head>
 <body>
     <header>
-        <h1 class="container-fluid text-center">Weather Dashboard</h1>
+        <h1 class="text-center">Weather Dashboard</h1>
     </header>
-
-    <div class="container-fluid">
-        <div class="row justify-content-start">
-          <div class="col-4 card-title">
-            <h2>Search for a City</h2>
-            <div class="input-group">
-                <!-- <span class="input-group-text">With textarea</span> -->
-                <input id="city-input" placeholder="Nashville"></input>
-            </div>
-            <button id="search-btn" class="btn btn-primary my-3">Search</button>
-          </div>
+    <!-- search bar -->
+    <div class="d-flex flex-row justify-content-around">
+      <div class="justify-content-start d-inline-flex flex-column w-25 mt-4 p-4">
+        <h2>Search for a City</h2>
+        <div class="input-group">
+          <input id="city-input" placeholder="Nashville" class="w-100"></input>
         </div>
+      <button id="search-btn" class="btn btn-primary my-3">Search</button>
+      <!-- search history container -->
+      <div id="search-history" class="d-flex flex-column"></div>
+      </div>
+    <div class="d-flex flex-row justify-content-center w-100">
+<!-- current weather container -->
+      <div id="current-weather" class="d-flex flex-column justify-content-center"></div>
+    </div>
     </div>
     
-    <div class="container-fluid d-flex flex-wrap">
-      <div id="search-history" class="d-inline-flex flex-column"></div>
-      <div id="current-weather" class="justify-content-center"></div>
-      <div id="five-day-forecast" class=""></div>
+    <div class="flex-column mt-4">
+      <!-- future weather container -->
+      <div id="five-day-forecast" class="d-flex flex-row flex-wrap justify-content-evenly "></div>
+   
     </div>
-
-    <!-- <div class="container">
-        <div class="row">
-            <div class="input-group mb-3">
-                <h2>Search for a City</h2>
-                <form>
-                    <span class="input-group-text" id="basic-addon1">@</span>
-                    <input type="text" class="form-control" placeholder="Nashville" aria-label="Username" aria-describedby="basic-addon1">
-            </div>
-                </form>  
-        </div>
-              
-        </form> -->
-        
-        <!-- <div class="row align-items-start">
-          <div class="col">
-            One of three columns
-          </div>
-        </div> -->
-      </div>
-      <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.7/dayjs.min.js"></script>
+ 
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.7/dayjs.min.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
