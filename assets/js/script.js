@@ -84,10 +84,11 @@ function searchWeather(city) {
         // clears container before subsequent search to prevent past city's weather from showing up
         currentWeatherContainer.textContent = ""
 
-        currentWeatherContainer.setAttribute('class', 'd-flex flex-column justify-content-start border rounded p-3 card mt-4')
+        currentWeatherContainer.setAttribute('class', 'current-weather-container d-flex flex-column justify-content-start text-center border rounded p-3 card mt-4')
+
 
         // city information to be displayed
-        let cityEl = document.createElement('h2')
+        let cityEl = document.createElement('h3')
         cityEl.innerText = data.name
         currentWeatherContainer.appendChild(cityEl)
 
@@ -97,9 +98,12 @@ function searchWeather(city) {
         currentWeatherContainer.appendChild(dateEl)
 
         // icon representing weather condition to be displayed
+        let wrapperIcon = document.createElement('div')
+        wrapperIcon.setAttribute('class', 'text-center')
         let iconEl = document.createElement('img')
         iconEl.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
-        currentWeatherContainer.appendChild(iconEl)
+        wrapperIcon.appendChild(iconEl)
+        currentWeatherContainer.appendChild(wrapperIcon)
 
         // current temperature to be displayed
         let tempEl = document.createElement('p')
@@ -136,16 +140,20 @@ function searchWeather(city) {
             console.log(forecast)
             // create wrapper for styling
             let wrapper = document.createElement('div')
-            wrapper.setAttribute('class', 'card border border-1 rounded p-4 justify-content-center')
+            wrapper.setAttribute('class', 'future-weather-container card text-center border border-1 rounded p-4 justify-content-center')
+
             // iterates over future date
-            let futureDateEl = document.createElement('p')
+            let futureDateEl = document.createElement('h3')
             futureDateEl.innerText = dayjs(forecast.dt_txt).format('dddd, MMM D, YYYY')
             wrapper.appendChild(futureDateEl)
 
             // iterates over future weather condition icon
+            let wrapperIcon = document.createElement('div')
+        wrapperIcon.setAttribute('class', 'text-center')
             let futureIconEl = document.createElement('img')
             futureIconEl.src = `http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`
-            wrapper.appendChild(futureIconEl)
+            wrapperIcon.appendChild(futureIconEl)
+            wrapper.appendChild(wrapperIcon)
 
             // iterates over future temperature
             let futureTempEl = document.createElement('p')
@@ -157,10 +165,6 @@ function searchWeather(city) {
             futureHumidityEl.innerText = 'Humidity: ' + forecast.main.humidity + '%'
             wrapper.appendChild(futureHumidityEl)
 
-            // iterates over future wind speed
-            let futureWindSpeedEl = document.createElement('p')
-            futureWindSpeedEl.innerText = 'Wind Speed: ' + forecast.wind.speed + ' MPH'
-            wrapper.appendChild(futureWindSpeedEl)
             futureWeatherContainer.appendChild(wrapper)
         }
     })

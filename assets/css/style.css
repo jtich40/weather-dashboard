@@ -9,13 +9,23 @@ h1 {
 }
 
 p {
-    font-size: 130%;
-}
-
-img {
-    width: 50% ;
+    font-size: 100%;
 }
 
 .card {
     background-color: #4a81e6;
+}
+
+.current-weather-container img {
+    width: 20% ;
+}
+
+.future-weather-container img {
+    width: 30% ;
+}
+
+ .future-weather-container {
+  width: 300px;
+  height: 300px;
+  margin: 1rem;
 }
